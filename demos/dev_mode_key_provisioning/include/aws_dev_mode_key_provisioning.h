@@ -73,7 +73,8 @@ typedef struct ProvisioningParams_t
  * \return CKR_OK upon successful credential setup.
  * Otherwise, a positive PKCS #11 error code.
  */
-CK_RV vDevModeKeyProvisioning( void );
+CK_RV vDevModeKeyProvisioning( ProvisioningParams_t * pxParams );
+//CK_RV vDevModeKeyProvisioning( void );
 
 /** \brief Provisiong a device given a valid PKCS #11 session.
  *

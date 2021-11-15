@@ -361,6 +361,21 @@ BaseType_t WIFI_IsConnected( const WIFINetworkParams_t * pxNetworkParams )
     return xRetVal;
 }
 
+WIFIReturnCode_t WIFI_SetHostName(const char *hostname)
+{
+    if (esp_netif_info == NULL) {
+        esp_netif_info = esp_netif_create_default_wifi_sta();
+    }
+
+    esp_err_t ret = esp_netif_set_hostname(esp_netif_info, hostname);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "%s: Failed to SET HOSTNAME %d", __func__, ret);
+        return eWiFiFailure;
+    }
+
+    return eWiFiSuccess;
+}
+
 WIFIReturnCode_t WIFI_Off( void )
 {
     esp_err_t ret;
@@ -414,7 +429,9 @@ WIFIReturnCode_t WIFI_On( void )
     // Check if Event Loop is already initialized
     if (event_loop_inited == false) {
         ret = esp_event_loop_create_default();
-        esp_netif_info = esp_netif_create_default_wifi_sta();
+        if (esp_netif_info == NULL) {
+            esp_netif_info = esp_netif_create_default_wifi_sta();
+        }
         esp_softap_netif_info = esp_netif_create_default_wifi_ap();
         if (ret != ESP_OK) {
             ESP_LOGE(TAG, "%s: Failed to init event loop %d", __func__, ret);

@@ -512,6 +512,11 @@ typedef struct
 typedef void (* WIFIEventHandler_t)( WIFIEvent_t * xEvent );
 
 /**
+ * @brief Wi-Fi set WiFi client hostname
+ */
+ WIFIReturnCode_t WIFI_SetHostName(const char *hostname);
+
+/**
  * @brief Turns on Wi-Fi.
  *
  * This function turns on Wi-Fi module,initializes the drivers and must be called
