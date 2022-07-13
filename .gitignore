@@ -22,3 +22,5 @@ RemoteSystemsTempFiles/*
 # Ignore certificate files
 *.pem
 *.crt
+
+.DS_Store
